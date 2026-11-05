@@ -1,0 +1,11 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: Reconcile every cent of a simulated claim allocation.
+summary: Calculate deductible, half-up coinsurance and per-claim cap effects for synthetic health and auto claims. An independent Decimal verifier checks every component and the final allocation.
+highlights:
+  - Integer arithmetic with explicit half-up rounding
+  - Separate health annual and auto event deductible rules
+  - Independent Decimal verification of every amount
+steps:
+  - Supply structured claim lines and simulation terms
+  - Run the allocation tool or agent task
+  - Review insurer, patient and cap-effect components

@@ -1,0 +1,34 @@
+_ > nanoagent.plugin.v0001.ManifestConfig:
+id: pc-claim-allocation
+name: Claim Cost Allocation
+version: 0.1.0
+status: ready
+spec: nanoagent.plugin/v0001
+
+runtime > nanoagent.plugin.v0001.RuntimeConfig:
+  type: mcp_stdio
+  command: [uv, run, --frozen, python, -m, plugin]
+
+permissions > nanoagent.plugin.v0001.PermissionsConfig:
+  network > nanoagent.plugin.v0001.NetworkConfig:
+    hosts: []
+  filesystem > nanoagent.plugin.v0001.FilesystemConfig:
+    write: [workspace]
+
+tools > dict[contract.Tool, nanoagent.plugin.v0001.ToolConfig]:
+  allocate_claims:
+    description: Compute the complete deterministic claim cost allocation result from structured source records
+
+tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
+  allocate-claims:
+    description: Audit structured records and submit the complete verified claim cost allocation result
+    runner: agent
+    tools: [allocate_claims]
+    reference: null
+    instructions: Call allocate_claims with the task input, then submit its complete structured output. Do not invent records or alter source values. Every result is checked independently by deterministic code.
+  allocate-claims-local:
+    description: Execute the same audit directly without a model for reproducible offline validation
+    runner: tool
+    tools: [allocate_claims]
+    reference: null
+    instructions: Compute the complete result from the provided structured source records.
